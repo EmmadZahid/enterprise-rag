@@ -17,6 +17,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - Database connections
   - Any other component
 
+## Planned Technologies
+
+- This project will use LangChain, LangGraph, PostgreSQL and pgvector.
+- None of these are installed yet.
+- The user is learning while building. Use these technologies when designing features, and guide them with short, simple explanations.
+
 ## Stack
 
 - Python 3.14 (pinned in `.python-version`, `requires-python >=3.14`).
