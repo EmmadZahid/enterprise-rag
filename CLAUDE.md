@@ -7,6 +7,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Early-stage scaffold made with `uv init`. No real RAG logic yet.
 - `README.md` is empty. No linter or formatter is configured.
 - The document endpoints are dummy (static data, no database). Real logic comes later.
+- `POST /documents` takes a markdown file upload (`.md` or `.markdown`, UTF-8, max `RAG_MAX_UPLOAD_BYTES`, default 5 MB). The file is read and returned, but not stored yet.
+
+## Testing
+
+- No tests for now. Do not write or update tests unless the user asks.
+- `test_create` and `test_create_validation` in `tests/test_documents.py` are outdated (they send JSON, but the route now takes a file) and will fail.
 
 ## Project Standards
 
@@ -27,7 +33,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Python 3.14 (pinned in `.python-version`, `requires-python >=3.14`).
 - Package manager: `uv`. Build backend: `uv_build` (src layout).
-- Dependencies: `fastapi`, `uvicorn`, `pydantic-settings`. Dev: `pytest`, `httpx`.
+- Dependencies: `fastapi`, `uvicorn`, `pydantic-settings`, `python-multipart` (needed for file uploads). Dev: `pytest`, `httpx`.
 - Local virtualenv lives in `.venv/`.
 
 ## Commands
@@ -35,7 +41,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Install/sync deps: `uv sync`
 - Add a dependency: `uv add <package>`
 - Run the API: `uv run enterprise-rag` (starts uvicorn via `enterprise_rag:main`)
-- Run all tests: `uv run pytest`
+- Run all tests: `uv run pytest` (tests are on hold, see Testing)
 - Run one test: `uv run pytest tests/test_documents.py::test_create`
 - Docs UI: `http://localhost:8000/docs` (only when `RAG_ENVIRONMENT` is `local` or `dev`)
 
@@ -48,4 +54,5 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `api/v1/`: versioned routers, mounted under `/api/v1`. Add new routers in `api/v1/router.py`.
 - `schemas/`: Pydantic request and response models.
 - `services/`: business logic, injected into routes with `Depends`. This is where real storage and retrieval will replace the dummy code.
-- `tests/`: pytest tests using FastAPI `TestClient`.
+  - `markdown_upload_service.py`: checks and reads the uploaded markdown file.
+- `tests/`: pytest tests using FastAPI `TestClient`. On hold for now.

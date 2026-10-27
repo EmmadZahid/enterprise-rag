@@ -3,7 +3,7 @@
 from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
-from enterprise_rag.schemas.document import DocumentCreate, DocumentRead
+from enterprise_rag.schemas.document import DocumentRead
 
 _DUMMY_ID = UUID("00000000-0000-0000-0000-000000000001")
 
@@ -25,11 +25,11 @@ class DocumentService:
         document = _dummy_document()
         return document if document.id == document_id else None
 
-    def create_document(self, payload: DocumentCreate) -> DocumentRead:
+    def create_document(self, title: str, content: str) -> DocumentRead:
         return DocumentRead(
             id=uuid4(),
-            title=payload.title,
-            content=payload.content,
+            title=title,
+            content=content,
             created_at=datetime.now(UTC),
         )
 

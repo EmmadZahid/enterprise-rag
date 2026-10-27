@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     api_v1_prefix: str = "/api/v1"
     host: str = "0.0.0.0"
     port: int = 8000
+    max_upload_bytes: int = 5 * 1024 * 1024  # 5 MB
 
 
 @lru_cache

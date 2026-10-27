@@ -1,13 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
-
-
-class DocumentCreate(BaseModel):
-    title: str = Field(min_length=1, max_length=255)
-    content: str = Field(min_length=1)
-
+from pydantic import BaseModel, ConfigDict
 
 class DocumentRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -16,7 +10,6 @@ class DocumentRead(BaseModel):
     title: str
     content: str
     created_at: datetime
-
 
 class DocumentList(BaseModel):
     items: list[DocumentRead]
